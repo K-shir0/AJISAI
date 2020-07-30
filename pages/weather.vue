@@ -41,7 +41,7 @@ export default {
       return Math.round(this.meteorological_raw[0].pressure / 25600)
     },
     getWindSpeed: function() {
-      return this.meteorological_raw[0].windSpeed / 2.237
+      return Math.floor(this.meteorological_raw[0].windSpeed / 2.237 * 10) / 10
     }
   },
 };
