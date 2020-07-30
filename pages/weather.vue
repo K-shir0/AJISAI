@@ -8,7 +8,7 @@
     <br />
     {{ getHumidity }} %
     <br />
-    {{ meteorological_raw[0].pressure / 25600 }} hpa
+    {{ getHectopascal }} hpa
     <br />
     {{ meteorological_raw[0].windSpeed / 2.237 }} m/s
     <br />
@@ -36,6 +36,9 @@ export default {
     },
     getHumidity: function () {
       return Math.round(this.meteorological_raw[0].humidity / 1024 * 100) / 100
+    },
+    getHectopascal: function() {
+      return Math.round(this.meteorological_raw[0].pressure / 25600)
     },
   },
 };
