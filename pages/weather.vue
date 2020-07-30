@@ -12,7 +12,7 @@
     <br />
     {{ getWindSpeed }} m/s
     <br />
-    {{ meteorological_raw[0].windDirection }}
+    {{ getWindDirection }}
   </div>
 </template>
 
@@ -31,18 +31,26 @@ export default {
     },
     get1hRain: function () {
       return (
-        (this.meteorological_raw[0].rain - this.meteorological_raw.pop().rain) * 25.4
+        (this.meteorological_raw[0].rain - this.meteorological_raw.pop().rain) *
+        25.4
       );
     },
     getHumidity: function () {
-      return Math.round(this.meteorological_raw[0].humidity / 1024 * 100) / 100
+      return (
+        Math.round((this.meteorological_raw[0].humidity / 1024) * 100) / 100
+      );
     },
-    getHectopascal: function() {
-      return Math.round(this.meteorological_raw[0].pressure / 25600)
+    getHectopascal: function () {
+      return Math.round(this.meteorological_raw[0].pressure / 25600);
     },
-    getWindSpeed: function() {
-      return Math.floor(this.meteorological_raw[0].windSpeed / 2.237 * 10) / 10
-    }
+    getWindSpeed: function () {
+      return (
+        Math.floor((this.meteorological_raw[0].windSpeed / 2.237) * 10) / 10
+      );
+    },
+    getWindDirection: function () {
+      return this.meteorological_raw[0].windDirection;
+    },
   },
 };
 </script>
