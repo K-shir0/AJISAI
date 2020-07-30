@@ -1,18 +1,18 @@
 <template>
   <div>
-    <!-- {{ meteorological[0] }}
-    <br /> -->
-    {{ meteorological[0].temperature / 100 }} ℃
+    <!-- {{ meteorological[0] }} -->
     <br />
-    {{ (meteorological[0].rain - meteorological.pop().rain) * 25.4}}mm/1h
+    {{ getTemperature }} ℃
     <br />
-    {{ meteorological[0].humidity / 1024 }} %
+    {{ get1hRain }} mm/1h
     <br />
-    {{ meteorological[0].pressure / 25600 }} hpa
+    {{ getHumidity }} %
     <br />
-    {{ meteorological[0].windSpeed / 2.237 }} m/s
+    {{ meteorological_raw[0].pressure / 25600 }} hpa
     <br />
-    {{ meteorological[0].windDirection }}
+    {{ meteorological_raw[0].windSpeed / 2.237 }} m/s
+    <br />
+    {{ meteorological_raw[0].windDirection }}
   </div>
 </template>
 
@@ -22,8 +22,22 @@ import jsonData from "@/data/1h-recent.json";
 export default {
   data() {
     return {
-      meteorological: jsonData,
+      meteorological_raw: jsonData,
     };
+  },
+  computed: {
+    getTemperature: function () {
+      return this.meteorological_raw[0].temperature / 100;
+    },
+    get1hRain: function () {
+      return (
+        (this.meteorological_raw[0].rain - this.meteorological_raw.pop().rain) *
+        25.4
+      );
+    },
+    getHumidity: function () {
+      return this.meteorological_raw[0].humidity / 1024
+    },
   },
 };
 </script>
