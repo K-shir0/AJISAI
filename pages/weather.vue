@@ -10,7 +10,7 @@
     <br />
     {{ getHectopascal }} hpa
     <br />
-    {{ meteorological_raw[0].windSpeed / 2.237 }} m/s
+    {{ getWindSpeed }} m/s
     <br />
     {{ meteorological_raw[0].windDirection }}
   </div>
@@ -40,6 +40,9 @@ export default {
     getHectopascal: function() {
       return Math.round(this.meteorological_raw[0].pressure / 25600)
     },
+    getWindSpeed: function() {
+      return this.meteorological_raw[0].windSpeed / 2.237
+    }
   },
 };
 </script>
