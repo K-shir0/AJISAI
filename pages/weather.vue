@@ -31,12 +31,11 @@ export default {
     },
     get1hRain: function () {
       return (
-        (this.meteorological_raw[0].rain - this.meteorological_raw.pop().rain) *
-        25.4
+        (this.meteorological_raw[0].rain - this.meteorological_raw.pop().rain) * 25.4
       );
     },
     getHumidity: function () {
-      return this.meteorological_raw[0].humidity / 1024
+      return Math.round(this.meteorological_raw[0].humidity / 1024 * 100) / 100
     },
   },
 };
