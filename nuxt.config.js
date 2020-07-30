@@ -52,7 +52,9 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
+    '@nuxtjs/axios'
   ],
+  axios: {},
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
