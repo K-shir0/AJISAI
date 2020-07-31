@@ -25,6 +25,17 @@ export default {
       meteorological_raw: jsonData,
     };
   },
+  async asyncData({ $axios }) {
+    // ????URL
+    const url = process.env.JSON_SERVER_URL;
+    // ??????Get?
+    const response = await $axios.$get(url);
+    // ??????????JSON?????
+    return {
+      meteorological_raw: response,
+    };
+  },
+
   computed: {
     getTemperature: function () {
       return this.meteorological_raw[0].temperature / 100;
