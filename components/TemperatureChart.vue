@@ -37,7 +37,7 @@ export default {
         hover: {
           animationDuration: 0, // アイテムのマウスオーバー時のアニメーションの長さ
         },
-        responsiveAnimationDuration: 0, // サイズ変更後のアニメーションの長さ
+        // responsiveAnimationDuration: 0, // サイズ変更後のアニメーションの長さ
       },
     };
   },
@@ -77,7 +77,7 @@ export default {
         labels: this.chartdata.map((data) => data.updatedAt),
         datasets: [
           {
-            label: ["1時間の気温"],
+            label: ["気温"],
             backgroundColor: "#f87979",
             data: this.chartdata.map((data) => data.temperature / 100),
             fill: false,
