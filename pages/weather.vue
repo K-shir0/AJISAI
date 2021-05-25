@@ -5,19 +5,21 @@
         <MarqueeText class="is-size-4"
                      :duration="30"
                      :repeat="2"
-        >現在の天気は曇り。現在の気温は{{ getTemperature }}°、湿度は{{ getHumidity }}%です。{{ getMarqueeText }}　　　　　　　　　　　　　　　　　　
+        >現在の天気は曇り。現在の気温は{{
+            getTemperature !== null ? getTemperature : "--"
+          }}°、湿度は{{ getHumidity !== null ? getHumidity : "--" }}%です。{{ getMarqueeText }}　　　　　　　　　　　　　　　　　　
           　　　　　　　　　　　　　　　　　　　　
         </MarqueeText>
       </div>
       <div class="columns is-centered is-desktop">
         <div class="column is-size-2 mt-6">
           <WindDirection :windDirection="getWindDirection" :windSpeed="getWindSpeed"/>
-          <div class="column has-text-centered">{{ getWindSpeed ? getWindSpeed : "--" }} m/s</div>
+          <div class="column has-text-centered">{{ getWindSpeed !== null ? getWindSpeed : "--" }} m/s</div>
         </div>
         <div class="column is-size-2 has-text-centered">
-          <div class="column">{{ getTemperature }} ℃</div>
-          <div class="column">{{ getHumidity }} %</div>
-          <div class="column">{{ getHectopascal }} hPa</div>
+          <div class="column">{{ getTemperature !== null ? getHectopascal : "--" }} ℃</div>
+          <div class="column">{{ getHumidity !== null ? getHumidity : "--" }} %</div>
+          <div class="column">{{ getHectopascal !== null ? getHectopascal : "--" }} hPa</div>
         </div>
         <div class="column is-size-2 mt-6">
           <figure class="image container is-128x128">
@@ -100,7 +102,12 @@ export default {
   },
   computed: {
     getTemperature() {
-      return this.meteorological_raw[0].temperature / 100;
+      const {temperature} = this.meteorological_raw[0];
+
+      if (temperature)
+        return temperature / 100;
+
+      return null;
     },
     get1hRain() {
       const leastRain = this.meteorological_raw[0].rain
@@ -112,15 +119,23 @@ export default {
       return null;
     },
     getHumidity() {
-      return (
-        Math.round((this.meteorological_raw[0].humidity / 1024) * 100) / 100
-      );
+      const {humidity} = this.meteorological_raw[0];
+
+      if (humidity)
+        return Math.round((humidity / 1024) * 100) / 100;
+
+      return null;
     },
     getHectopascal() {
-      return Math.round(this.meteorological_raw[0].pressure / 25600);
+      const {pressure} = this.meteorological_raw[0];
+
+      if (pressure)
+        return Math.round(pressure / 25600);
+
+      return null;
     },
     getWindSpeed() {
-      const { windSpeed } = this.meteorological_raw[0]
+      const {windSpeed} = this.meteorological_raw[0]
 
       if (windSpeed)
         return Math.floor((windSpeed / 2.237) * 10) / 10;
@@ -134,8 +149,8 @@ export default {
       const temperature = this.getTemperature;
       const humidity = this.getHumidity;
 
-      if (temperature && humidity) {
-
+      if (!temperature || !humidity) {
+        return "現在、値がうまく取得できていません。"
       }
 
       const DI = Math.round(
