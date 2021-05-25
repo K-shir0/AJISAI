@@ -12,7 +12,7 @@
       <div class="columns is-centered is-desktop">
         <div class="column is-size-2 mt-6">
           <WindDirection :windDirection="getWindDirection" :windSpeed="getWindSpeed"/>
-          <div class="column has-text-centered">{{ getWindSpeed }} m/s</div>
+          <div class="column has-text-centered">{{ getWindSpeed ? getWindSpeed : "--" }} m/s</div>
         </div>
         <div class="column is-size-2 has-text-centered">
           <div class="column">{{ getTemperature }} ℃</div>
@@ -23,7 +23,7 @@
           <figure class="image container is-128x128">
             <img src="~/assets/cloudy.svg" height="182" width="182"/>
           </figure>
-          <div class="column has-text-centered">{{ get1hRain }} mm/1h</div>
+          <div class="column has-text-centered">{{ get1hRain ? get1hRain : "--" }} mm/1h</div>
         </div>
       </div>
       <div class="tabs is-centered column">
@@ -67,12 +67,6 @@ import HumidityChart from "@/components/HumidityChart.vue";
 
 const interval = 66;
 
-// function sleep(time) {
-//   return new Promise((resolve) => {
-//     setTimeout(resolve, time);
-//   });
-// }
-
 export default {
   data() {
     return {
@@ -109,10 +103,13 @@ export default {
       return this.meteorological_raw[0].temperature / 100;
     },
     get1hRain() {
-      return (
-        (this.meteorological_raw[0].rain - this.meteorological_raw.pop().rain) *
-        25.4
-      );
+      const leastRain = this.meteorological_raw[0].rain
+      const oneHourAgoRain = this.meteorological_raw.pop().rain
+
+      if (leastRain && oneHourAgoRain)
+        return (leastRain - oneHourAgoRain) * 25.4
+
+      return null;
     },
     getHumidity() {
       return (
@@ -123,16 +120,26 @@ export default {
       return Math.round(this.meteorological_raw[0].pressure / 25600);
     },
     getWindSpeed() {
-      return (
-        Math.floor((this.meteorological_raw[0].windSpeed / 2.237) * 10) / 10
-      );
+      const { windSpeed } = this.meteorological_raw[0]
+
+      if (windSpeed)
+        return Math.floor((windSpeed / 2.237) * 10) / 10;
+
+      return null;
     },
     getWindDirection() {
       return this.meteorological_raw[0].windDirection;
     },
     getMarqueeText() {
+      const temperature = this.getTemperature;
+      const humidity = this.getHumidity;
+
+      if (temperature && humidity) {
+
+      }
+
       const DI = Math.round(
-        (0.81 * this.getTemperature + 0.01 * this.getHumidity * (0.99 * this.getTemperature - 14.3) + 46.3) * 10) / 10
+        (0.81 * temperature + 0.01 * humidity * (0.99 * temperature - 14.3) + 46.3) * 10) / 10
 
       if (DI < 55)
         return `寒いので。厚着をしていきましょう。`
