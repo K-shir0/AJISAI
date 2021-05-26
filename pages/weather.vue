@@ -69,20 +69,55 @@ import HumidityChart from "@/components/HumidityChart.vue";
 
 const interval = 66;
 
+const defaultData = [
+  {
+    "id": 0,
+    "soilTemperature": null,
+    "soilMoisture": null,
+    "windSpeed": null,
+    "windDirection": "",
+    "temperature": null,
+    "pressure": null,
+    "humidity": null,
+    "altitude": null,
+    "rain": null,
+    "createdAt": "2020-09-12T00:00:00.000Z",
+    "updatedAt": "2020-09-12T10:20:34.000Z"
+  },
+  {
+    "id": 1,
+    "soilTemperature": null,
+    "soilMoisture": null,
+    "windSpeed": null,
+    "windDirection": "",
+    "temperature": null,
+    "pressure": null,
+    "humidity": null,
+    "altitude": null,
+    "rain": null,
+    "createdAt": "2020-09-12T00:00:00.000Z",
+    "updatedAt": "2020-09-12T10:20:34.000Z"
+  }
+]
+
 export default {
   data() {
     return {
       isActive: "3600",
-      meteorological_raw: jsonData,
+      meteorological_raw: defaultData,
       resetFlag: false,
     };
   },
   created: function () {
     setInterval(async () => {
       const url = process.env.JSON_SERVER_URL;
-      const response = await axios.get(url);
+      try {
+        const response = await axios.get(url);
 
-      this.meteorological_raw = response.data;
+        this.meteorological_raw = response.data;
+      } catch (e) {
+        this.meteorological_raw = defaultData;
+      }
 
       this.resetFlag = true;
       this.$nextTick(() => {
@@ -93,16 +128,20 @@ export default {
   async asyncData({$axios}) {
     // 環境変数からURLを取得
     const url = process.env.JSON_SERVER_URL;
-    // ??????Get?
-    const response = await $axios.$get(url);
-    // ??????????JSON?????
-    return {
-      meteorological_raw: response,
-    };
+    try {
+      const response = await $axios.$get(url);
+      return {
+        meteorological_raw: response,
+      };
+    } catch (e) {
+      return {
+        meteorological_raw: defaultData
+      }
+    }
   },
   computed: {
     getTemperature() {
-      const {temperature} = this.meteorological_raw[0];
+      const temperature = this.meteorological_raw[0]?.temperature;
 
       if (temperature)
         return temperature / 100;
@@ -110,8 +149,8 @@ export default {
       return null;
     },
     get1hRain() {
-      const leastRain = this.meteorological_raw[0].rain
-      const oneHourAgoRain = this.meteorological_raw.pop().rain
+      const leastRain = this.meteorological_raw[0]?.rain
+      const oneHourAgoRain = this.meteorological_raw[0] ? this.meteorological_raw.pop().rain : null
 
       if (leastRain && oneHourAgoRain)
         return (leastRain - oneHourAgoRain) * 25.4
@@ -119,7 +158,7 @@ export default {
       return null;
     },
     getHumidity() {
-      const {humidity} = this.meteorological_raw[0];
+      const humidity = this.meteorological_raw[0]?.humidity;
 
       if (humidity)
         return Math.round((humidity / 1024) * 100) / 100;
@@ -127,7 +166,7 @@ export default {
       return null;
     },
     getHectopascal() {
-      const {pressure} = this.meteorological_raw[0];
+      const pressure = this.meteorological_raw[0]?.pressure;
 
       if (pressure)
         return Math.round(pressure / 25600);
@@ -135,7 +174,7 @@ export default {
       return null;
     },
     getWindSpeed() {
-      const {windSpeed} = this.meteorological_raw[0]
+      const windSpeed = this.meteorological_raw[0]?.windSpeed;
 
       if (windSpeed)
         return Math.floor((windSpeed / 2.237) * 10) / 10;
@@ -143,11 +182,11 @@ export default {
       return null;
     },
     getWindDirection() {
-      return this.meteorological_raw[0].windDirection;
+      return this.meteorological_raw[0]?.windDirection;
     },
     getMarqueeText() {
       const temperature = this.getTemperature;
-      const humidity = this.getHumidity;
+      const humidity = this.getHumidity ?? null;
 
       if (!temperature || !humidity) {
         return "現在、値がうまく取得できていません。"
@@ -183,19 +222,19 @@ export default {
       });
     },
     getHourData() {
-      return this.meteorological_raw
+      return this.meteorological_raw ? this.meteorological_raw
         .filter(
           (x, y) => y % Math.round(this.meteorological_raw.length / 30) === 0
         )
-        .reverse();
+        .reverse() : null;
     },
     getMinuteData(minutes) {
-      const last = moment(this.meteorological_raw[0].updatedAt).subtract(
+      const last = this.meteorological_raw[0] ? moment(this.meteorological_raw[0].updatedAt).subtract(
         minutes,
         "minutes"
-      );
+      ) : null;
 
-      return this.meteorological_raw
+      return this.meteorological_raw[0] ? this.meteorological_raw
         .filter((x, y) => moment(x.updatedAt).isAfter(last))
         .filter((x, y, z) => {
           if (z.length >= 30) {
@@ -205,7 +244,7 @@ export default {
 
           return true;
         })
-        .reverse();
+        .reverse() : null;
     },
   },
   components: {

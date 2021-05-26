@@ -1,5 +1,5 @@
 <template>
-  <LineChart :chartdata="getDatas" :options="options" :height="182" />
+  <LineChart :chartdata="getDates" :options="options" :height="182" />
 </template>
 
 <script>
@@ -68,18 +68,14 @@ export default {
         },
       };
     },
-    getDatas: function () {
-      const interval = Math.round(this.chartdata.length / 30);
-
-      // console.log(interval);
-
+    getDates: function () {
       return {
-        labels: this.chartdata.map((data) => data.updatedAt),
+        labels: this.chartdata ? this.chartdata.map((data) => data.updatedAt) : null,
         datasets: [
           {
             label: ["気温"],
             backgroundColor: "#f87979",
-            data: this.chartdata.map((data) => data.temperature / 100),
+            data: this.chartdata ? this.chartdata.map((data) => data.temperature / 100) : null,
             fill: false,
             lineTension: 0.3,
           },

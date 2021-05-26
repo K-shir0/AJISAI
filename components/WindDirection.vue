@@ -9,7 +9,7 @@ export default {
   props: ["windDirection", "windSpeed"],
   data() {
     return {
-      imgSrc: require(`@/assets/Icon/${this.windDirection ?? "N"}5.svg`),
+      imgSrc: require(`@/assets/Icon/N5.svg`),
     };
   },
   mounted() {
@@ -36,7 +36,7 @@ export default {
         break;
     }
 
-    this.imgSrc = require(`@/assets/Icon/${this.windDirection ?? "N"}${windSpeedIcon}.svg`);
+    this.imgSrc = require(`@/assets/Icon/${this.windDirection ? this.windDirection: "N"}${windSpeedIcon}.svg`);
   },
   watch: {
     windDirection: function () {
@@ -63,7 +63,7 @@ export default {
           break;
       }
 
-      this.imgSrc = require(`@/assets/Icon/${this.windDirection}${windSpeedIcon}.svg`);
+      this.imgSrc = require(`@/assets/Icon/${this.windDirection ? this.windDirection: "N"}${windSpeedIcon}.svg`);
     },
     windSpeed: function () {
       let windSpeedIcon = "0";
