@@ -42,14 +42,14 @@
         </ul>
         <div v-if="!resetFlag" class="column columns">
           <div class="column">
-            <TemperatureChart v-if="isActive == '3600'" :chartdata="getHourData()"/>
-            <TemperatureChart v-if="isActive == '600'" :chartdata="getMinuteData(10)"/>
-            <TemperatureChart v-if="isActive == '60'" :chartdata="getMinuteData(1)"/>
+            <TemperatureChart v-if="isActive === '3600'" :chartdata="getHourData()"/>
+            <TemperatureChart v-if="isActive === '600'" :chartdata="getMinuteData(10)"/>
+            <TemperatureChart v-if="isActive === '60'" :chartdata="getMinuteData(1)"/>
           </div>
           <div class="column">
-            <HumidityChart v-if="isActive == '3600'" :chartdata="getHourData()"/>
-            <HumidityChart v-if="isActive == '600'" :chartdata="getMinuteData(10)"/>
-            <HumidityChart v-if="isActive == '60'" :chartdata="getMinuteData(1)"/>
+            <HumidityChart v-if="isActive === '3600'" :chartdata="getHourData()"/>
+            <HumidityChart v-if="isActive === '600'" :chartdata="getMinuteData(10)"/>
+            <HumidityChart v-if="isActive === '60'" :chartdata="getMinuteData(1)"/>
           </div>
         </div>
       </div>
