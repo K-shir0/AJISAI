@@ -17,7 +17,7 @@
           <div class="column has-text-centered">{{ getWindSpeed !== null ? getWindSpeed : "--" }} m/s</div>
         </div>
         <div class="column is-size-2 has-text-centered">
-          <div class="column">{{ getTemperature !== null ? getHectopascal : "--" }} ℃</div>
+          <div class="column">{{ getTemperature !== null ? getTemperature : "--" }} ℃</div>
           <div class="column">{{ getHumidity !== null ? getHumidity : "--" }} %</div>
           <div class="column">{{ getHectopascal !== null ? getHectopascal : "--" }} hPa</div>
         </div>
