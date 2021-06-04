@@ -1,20 +1,16 @@
-# web-server_AWNS
+# ajisai
 
-## Build Setup
+A new Flutter project.
 
-```bash
-# install dependencies
-$ yarn install
+## Getting Started
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+This project is a starting point for a Flutter application.
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+A few resources to get you started if this is your first Flutter project:
 
-# generate static project
-$ yarn generate
-```
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
