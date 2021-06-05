@@ -1,9 +1,32 @@
+import 'dart:convert';
+
+import 'package:ajisai/providers/weather.dart';
+import 'package:ajisai/providers/weather_state.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class WeatherDashboardPage extends HookWidget {
+  
+  final testJson = '''
+  [{"_id":"60ae4f00916286ba94583a7d","altitude":18,"createdat":"2021-05-26T22:37:04.563+09:00","humidity":102400,"pressure":25905076,"rain":0.077,"soilmoisture":373,"soiltemperature":-6,"temperature":2267,"updatedat":"2021-05-26T22:37:04.563+09:00","winddirection":"NE","windspeed":0}]
+  ''';
+  
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_function_declarations_over_variables
+    final test = () async {
+      try {
+        // final dio = Dio();
+        // final response = await dio.get('http://localhost:1323/weathers');
+        final a = WeatherState.fromJson({'weathers': jsonDecode(testJson)});
+      } catch (e) {
+        print(e);
+      }
+    };
+
+    test();
+
     return Scaffold(
       body: Stack(
         children: [
