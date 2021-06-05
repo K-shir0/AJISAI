@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:ajisai/providers/weather_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class WeatherDashboardPage extends HookWidget {
@@ -62,18 +63,33 @@ class WeatherDashboardPage extends HookWidget {
             ),
             ResponsiveGridCol(
               lg: 8,
-              child: ResponsiveGridRow(
-                children: [
-                  // ここに要素
-                  topInformationFrame(
-                    GlassBox(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: topInformation(),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ResponsiveGridRow(
+                  children: [
+                    // ここに要素
+                    ResponsiveGridCol(
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 4.0),
+                        child: Text(
+                          "AJISAI",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 64,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    topInformationFrame(
+                      GlassBox(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: topInformation(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ]),
@@ -89,26 +105,76 @@ class WeatherDashboardPage extends HookWidget {
   }
 
   Widget topInformation() {
-    return Row(
+    return Column(
       children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "5:13 JST時点",
-              style: TextStyle(color: Colors.white.withOpacity(0.8)),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "5:13 JST時点",
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.8), fontSize: 18),
+                ),
+                const Text("20°",
+                    style: TextStyle(color: Colors.white, fontSize: 64)),
+                const Text("晴れ",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold)),
+              ],
             ),
-            const Text("20°",
-                style: TextStyle(color: Colors.white, fontSize: 64)),
-            const Text("晴れ",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold)),
+            /*
+             * 晴れとか曇りとか
+             */
+            SvgPicture.asset(
+              "svg/cloudy.svg",
+              height: 96,
+            ),
           ],
         ),
+        // ここからサブインフォ
+        Padding(
+          padding: const EdgeInsets.only(top: 32),
+          child: ResponsiveGridRow(children: [
+            ResponsiveGridCol(xs: 1, child: Container()),
+            MiniInfo(MaterialCommunityIcons.water_outline, "湿度"),
+            MiniInfo(MaterialCommunityIcons.gauge, "気圧"),
+            MiniInfo(MaterialCommunityIcons.weather_windy, "風速"),
+            MiniInfo(MaterialCommunityIcons.arrow_bottom_left, "風向"),
+            MiniInfo(MaterialCommunityIcons.cup, "雨量"),
+          ]),
+        )
       ],
+    );
+  }
+
+  ResponsiveGridCol MiniInfo(IconData iconData, String title) {
+    return ResponsiveGridCol(
+      xs: 2,
+      child: Column(
+        children: [
+          Icon(
+            iconData,
+            size: 40,
+            color: Colors.white,
+          ),
+          Text(title,
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold)),
+          Text("75%",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold)),
+        ],
+      ),
     );
   }
 }
