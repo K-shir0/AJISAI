@@ -14,12 +14,14 @@ class App extends HookWidget {
       ),
       onGenerateRoute: (settings) {
         if (settings.name == '/') {
-          return MaterialPageRoute(builder: (context) => WeatherDashboardPage());
+          return MaterialPageRoute(
+              builder: (context) => WeatherDashboardPage());
         }
 
         // Default Routing
         return MaterialPageRoute(
-            builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page Default'));
+            builder: (context) =>
+                const MyHomePage(title: 'Flutter Demo Home Page Default'));
       },
     );
   }
