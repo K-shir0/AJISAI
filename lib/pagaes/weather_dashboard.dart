@@ -5,6 +5,7 @@ import 'package:ajisai/providers/weather_state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -116,10 +117,38 @@ class WeatherDashboardPage extends HookWidget {
   }
 
   Widget topInformation(Weather? weather) {
-    final String temperature = weather?.getTemperature()?.round().toString() ?? "-- "; // 気温
+    final String temperature =
+        weather?.getTemperature()?.round().toString() ?? "-- "; // 気温
     final String humidity = weather?.getHumidity()?.toString() ?? "-- "; // 湿度
-    final String hectopascal = weather?.getHectopascal()?.toString() ?? "-- "; // 気圧
+    final String hectopascal =
+        weather?.getHectopascal()?.toString() ?? "-- "; // 気圧
     final String windSpeed = weather?.getWindSpeed()?.toString() ?? "-- "; // 風速
+    final String windDirection = weather?.winddirection ?? "--"; // 風向
+
+    // 風向の矢印を決定するメソッド
+    IconData windDirectionArrow(String? windDirection) {
+      switch (windDirection) {
+        case "E":
+          return MaterialCommunityIcons.arrow_right;
+        case "N":
+          return MaterialCommunityIcons.arrow_up;
+        case "NE":
+          return MaterialCommunityIcons.arrow_top_right;
+        case "NW":
+          return MaterialCommunityIcons.arrow_top_left;
+        case "S":
+          return MaterialCommunityIcons.arrow_down;
+        case "SE":
+          return MaterialCommunityIcons.arrow_bottom_right;
+        case "SW":
+          return MaterialCommunityIcons.arrow_bottom_left;
+        case "W":
+          return MaterialCommunityIcons.arrow_left;
+
+        default:
+          return Icons.help_outline;
+      }
+    }
 
     return Column(
       children: [
@@ -161,8 +190,10 @@ class WeatherDashboardPage extends HookWidget {
             ResponsiveGridCol(xs: 1, child: Container()),
             miniInfo(MaterialCommunityIcons.water_outline, "湿度", "$humidity%"),
             miniInfo(MaterialCommunityIcons.gauge, "気圧", "${hectopascal}hPa"),
-            miniInfo(MaterialCommunityIcons.weather_windy, "風速", "${windSpeed}m/s"),
-            miniInfo(MaterialCommunityIcons.arrow_bottom_left, "風向", "N"),
+            miniInfo(
+                MaterialCommunityIcons.weather_windy, "風速", "${windSpeed}m/s"),
+            miniInfo(windDirectionArrow(weather?.winddirection), "風向",
+                windDirection),
             miniInfo(MaterialCommunityIcons.cup, "雨量", "28mm/1h"),
           ]),
         )
