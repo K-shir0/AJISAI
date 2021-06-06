@@ -6,8 +6,6 @@ part 'weather.g.dart';
 
 @freezed
 class Weather with _$Weather {
-  const Weather._();
-
   const factory Weather({
     @JsonKey(name: "_id") @Default("") String id,
     int? altitude,
@@ -23,6 +21,8 @@ class Weather with _$Weather {
     int? windspeed,
 
   }) = _Weather;
+
+  const Weather._();
 
   double? getTemperature() {
     if (temperature == null) return null;

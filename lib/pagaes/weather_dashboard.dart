@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:ajisai/providers/weather.dart';
 import 'package:ajisai/providers/weather_state.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,18 +27,18 @@ class WeatherDashboardPage extends HookWidget {
 
     useEffect(() {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        // ignore: prefer_function_declarations_over_variables
-        final test = () async {
+        fetchData(Dio dio) async {
           try {
-            // final dio = Dio();
             // final response = await dio.get('http://localhost:1323/weathers');
             return WeatherState.fromJson({'weathers': jsonDecode(testJson)});
           } catch (e) {
             print(e);
           }
-        };
+        }
 
-        test().then((value) => context
+        final dio = Dio();
+
+        fetchData(dio).then((value) => context
             .read(weatherStateNotifier.notifier)
             .setState(value!.weathers));
       });
@@ -136,8 +138,8 @@ class WeatherDashboardPage extends HookWidget {
                       color: Colors.white.withOpacity(0.8), fontSize: 18),
                 ),
                 // 気温
-                Text("${temperature}°",
-                    style: TextStyle(color: Colors.white, fontSize: 64)),
+                Text("$temperature°",
+                    style: const TextStyle(color: Colors.white, fontSize: 64)),
                 const Text("晴れ",
                     style: TextStyle(
                         color: Colors.white,
@@ -216,6 +218,7 @@ class GlassBox extends StatelessWidget {
                   Colors.white.withOpacity(0.2),
                   Colors.white.withOpacity(0.1),
                 ],
+                // ignore: prefer_const_literals_to_create_immutables
                 stops: [0.0, 1.0],
               )
             : null,
