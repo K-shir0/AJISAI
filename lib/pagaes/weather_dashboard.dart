@@ -121,7 +121,7 @@ class WeatherDashboardPage extends HookWidget {
                             child: GlassBox(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Thermometer(),
+                                child: Thermometer(meterValue: latestData?.getTemperature()?.roundToDouble() ?? -21,),
                               ),
                             ),
                           ),

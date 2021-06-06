@@ -26,11 +26,16 @@ class PartsPage extends HookWidget {
 }
 
 class Thermometer extends StatelessWidget {
-  final double _meterValue = 38;
-  final double _temperatureValue = 37.5;
+  final double meterValue;
+  final double _temperatureValue = 24.0;
+
+  const Thermometer({this.meterValue = -21});
 
   @override
   Widget build(BuildContext context) {
+    final meterColor = color();
+
+    // ignore: sized_box_for_whitespace
     return Container(
       height: 256,
       child: Row(
@@ -70,7 +75,7 @@ class Thermometer extends StatelessWidget {
                   markerAlignment: LinearMarkerAlignment.start,
                   shapeType: LinearShapePointerType.circle,
                   borderWidth: 1,
-                  borderColor: Colors.white30,
+                  borderColor: Colors.black26,
                   color: Colors.white,
                   // TODO
                   position: LinearElementPosition.cross,
@@ -83,9 +88,7 @@ class Thermometer extends StatelessWidget {
                   shapeType: LinearShapePointerType.circle,
                   borderWidth: 6,
                   borderColor: Colors.transparent,
-                  color: _meterValue > _temperatureValue
-                      ? const Color(0xffFF7B7B)
-                      : const Color(0xff0074E3),
+                  color: color(),
                   position: LinearElementPosition.cross,
                   width: 24,
                   height: 24,
@@ -103,13 +106,11 @@ class Thermometer extends StatelessWidget {
                           right: BorderSide(
                               width: 2.0, color: Colors.white), //TODO
                         ),
-                        color: _meterValue > _temperatureValue
-                            ? const Color(0xffFF7B7B)
-                            : const Color(0xff0074E3),
+                        color: color(),
                       ),
                     )),
                 LinearWidgetPointer(
-                    value: _meterValue,
+                    value: meterValue,
                     enableAnimation: false,
                     position: LinearElementPosition.outside,
                     // onValueChanged: (value) => {
@@ -121,15 +122,15 @@ class Thermometer extends StatelessWidget {
                         width: 16,
                         height: 12,
                         transform: Matrix4.translationValues(1, -2, 0.0),
-                        child: Icon(
-                          Icons.arrow_right,
-                          color: _meterValue > _temperatureValue
-                              ? const Color(0xffFF7B7B)
-                              : const Color(0xff0074E3),
-                          size: 24,
-                        ))),
+                        child: meterValue >= -20
+                            ? Icon(
+                                Icons.arrow_right,
+                                color: color(),
+                                size: 24,
+                              )
+                            : null)),
                 LinearShapePointer(
-                  value: _meterValue,
+                  value: meterValue,
                   width: 20,
                   height: 20,
                   enableAnimation: false,
@@ -144,17 +145,22 @@ class Thermometer extends StatelessWidget {
               ],
               barPointers: <LinearBarPointer>[
                 LinearBarPointer(
-                  value: _meterValue,
+                  value: meterValue,
                   enableAnimation: false,
                   thickness: 6,
                   edgeStyle: LinearEdgeStyle.endCurve,
-                  color: _meterValue > _temperatureValue
-                      ? const Color(0xffFF7B7B)
-                      : const Color(0xff0074E3),
+                  color: color(),
                 )
               ]),
         ],
       ),
     );
+  }
+
+  Color color() {
+    if (meterValue < -20) return Colors.white;
+    return meterValue > _temperatureValue
+        ? const Color(0xffFF7B7B)
+        : const Color(0xff0074E3);
   }
 }
