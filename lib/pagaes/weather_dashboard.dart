@@ -13,6 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
+import 'common/glass_box.dart';
+
 final weatherStateNotifier =
     StateNotifierProvider<WeatherStateNotifier, WeatherState>(
   (refs) => WeatherStateNotifier(),
@@ -32,7 +34,7 @@ class WeatherDashboardPage extends HookWidget {
 
     useEffect(() {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        fetchData(Dio dio) async {
+        Future<WeatherState?> fetchData(Dio dio) async {
           try {
             // final response = await dio.get('file:///Users/k-shiro/Downloads/1h-recent.json');
             final file = await rootBundle.loadString('1h-recent.json');
@@ -122,6 +124,19 @@ class WeatherDashboardPage extends HookWidget {
                       ),
                     ),
                     // 気温のグラフ
+                    ResponsiveGridCol(
+                        child: ResponsiveGridRow(
+                      children: [
+                        ResponsiveGridCol(
+                          xl: 3,
+                          child: GlassBox(
+                            child: Container(
+                              height: 500,
+                            ),
+                          ),
+                        )
+                      ],
+                    ))
                   ],
                 ),
               ),
@@ -246,36 +261,6 @@ class WeatherDashboardPage extends HookWidget {
                   fontWeight: FontWeight.bold)),
         ],
       ),
-    );
-  }
-}
-
-class GlassBox extends StatelessWidget {
-  final Widget? child;
-  final bool isNormal;
-
-  const GlassBox({this.child, this.isNormal = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: isNormal ? Colors.white : null,
-        borderRadius: BorderRadius.circular(16.0),
-        gradient: !isNormal
-            ? LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.white.withOpacity(0.2),
-                  Colors.white.withOpacity(0.1),
-                ],
-                // ignore: prefer_const_literals_to_create_immutables
-                stops: [0.0, 1.0],
-              )
-            : null,
-      ),
-      child: child,
     );
   }
 }

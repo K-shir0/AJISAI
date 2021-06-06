@@ -1,4 +1,5 @@
 import 'package:ajisai/pagaes/my_home.dart';
+import 'package:ajisai/pagaes/parts.dart';
 import 'package:ajisai/pagaes/weather_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,6 +17,10 @@ class App extends HookWidget {
         if (settings.name == '/') {
           return MaterialPageRoute(
               builder: (context) => WeatherDashboardPage());
+        }
+        
+        if (settings.name == '/parts') {
+          return MaterialPageRoute(builder: (context) => PartsPage());
         }
 
         // Default Routing
