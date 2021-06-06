@@ -32,9 +32,9 @@ class Thermometer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      transform: Matrix4.translationValues(26, 0, 0.0),
       height: 256,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SfLinearGauge(
               minimum: -20,

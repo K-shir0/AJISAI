@@ -115,7 +115,7 @@ class WeatherDashboardPage extends HookWidget {
                         child: ResponsiveGridRow(
                       children: [
                         ResponsiveGridCol(
-                          xl: 2,
+                          xs: 3,
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: GlassBox(
