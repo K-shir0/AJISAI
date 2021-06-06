@@ -19,7 +19,10 @@ final weatherStateNotifier =
 
 class WeatherDashboardPage extends HookWidget {
   final testJson = '''
-  [{"_id":"60ae4f00916286ba94583a7d","altitude":18,"createdat":"2021-05-26T22:37:04.563+09:00","humidity":102400,"pressure":25905076,"rain":0.077,"soilmoisture":373,"soiltemperature":-6,"temperature":2267,"updatedat":"2021-05-26T22:37:04.563+09:00","winddirection":"NE","windspeed":0}]
+  [
+  {"_id":"60ae4f00916286ba94583a7d","altitude":18,"createdat":"2021-05-26T22:37:04.563+09:00","humidity":102400,"pressure":25905076,"rain":0.077,"soilmoisture":373,"soiltemperature":-6,"temperature":2267,"updatedat":"2021-05-26T22:37:04.563+09:00","winddirection":"NE","windspeed":0},
+  {"_id":"60ae4f00916286ba94583a7d","altitude":18,"createdat":"2021-05-26T22:37:04.563+09:00","humidity":102400,"pressure":25905076,"rain":0.000,"soilmoisture":373,"soiltemperature":-6,"temperature":2267,"updatedat":"2021-05-26T22:37:04.563+09:00","winddirection":"NE","windspeed":0}
+  ]
   ''';
 
   @override
@@ -47,7 +50,18 @@ class WeatherDashboardPage extends HookWidget {
 
     // 一番新しいデータ
     final Weather? latestData =
-        provider.weathers.isNotEmpty ? provider.weathers[0] : null;
+        provider.weathers.isNotEmpty ? provider.weathers.first : null;
+
+    final Weather? oldestData =
+        provider.weathers.isNotEmpty ? provider.weathers.last : null;
+
+    double? rain1hRecent;
+
+    if (latestData != null && oldestData != null) {
+      if (latestData.rain != null && oldestData.rain != null) {
+        rain1hRecent = (latestData.rain! - oldestData.rain!) * 25.4;
+      }
+    }
 
     return Scaffold(
       body: Stack(
@@ -96,7 +110,7 @@ class WeatherDashboardPage extends HookWidget {
                       GlassBox(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: topInformation(latestData),
+                          child: topInformation(latestData, rain1hRecent),
                         ),
                       ),
                     ),
@@ -116,7 +130,7 @@ class WeatherDashboardPage extends HookWidget {
     );
   }
 
-  Widget topInformation(Weather? weather) {
+  Widget topInformation(Weather? weather, double? rain) {
     final String temperature =
         weather?.getTemperature()?.round().toString() ?? "-- "; // 気温
     final String humidity = weather?.getHumidity()?.toString() ?? "-- "; // 湿度
@@ -194,7 +208,8 @@ class WeatherDashboardPage extends HookWidget {
                 MaterialCommunityIcons.weather_windy, "風速", "${windSpeed}m/s"),
             miniInfo(windDirectionArrow(weather?.winddirection), "風向",
                 windDirection),
-            miniInfo(MaterialCommunityIcons.cup, "雨量", "28mm/1h"),
+            miniInfo(MaterialCommunityIcons.cup, "雨量",
+                "${rain?.toStringAsFixed(1) ?? "-- "}mm/1h"),
           ]),
         )
       ],
