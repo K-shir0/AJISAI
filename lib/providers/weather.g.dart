@@ -9,21 +9,21 @@ part of 'weather.dart';
 _$_Weather _$_$_WeatherFromJson(Map<String, dynamic> json) {
   return _$_Weather(
     id: json['_id'] as String,
-    altitude: json['altitude'] as int?,
-    createdat: json['createdat'] == null
+    altitude: (json['altitude'] as num?)?.toDouble(),
+    createdAt: json['createdAt'] == null
         ? null
-        : DateTime.parse(json['createdat'] as String),
-    humidity: json['humidity'] as int?,
-    pressure: json['pressure'] as int?,
+        : DateTime.parse(json['createdAt'] as String),
+    humidity: (json['humidity'] as num?)?.toDouble(),
+    pressure: (json['pressure'] as num?)?.toDouble(),
     rain: (json['rain'] as num?)?.toDouble(),
-    soilmoisture: json['soilmoisture'] as int?,
-    soiltemperature: json['soiltemperature'] as int?,
-    temperature: json['temperature'] as int?,
-    updatedat: json['updatedat'] == null
+    soilMoisture: (json['soilMoisture'] as num?)?.toDouble(),
+    soilTemperature: (json['soilTemperature'] as num?)?.toDouble(),
+    temperature: (json['temperature'] as num?)?.toDouble(),
+    updatedAt: json['updatedAt'] == null
         ? null
-        : DateTime.parse(json['updatedat'] as String),
-    winddirection: json['winddirection'] as String?,
-    windspeed: json['windspeed'] as int?,
+        : DateTime.parse(json['updatedAt'] as String),
+    windDirection: json['windDirection'] as String?,
+    windSpeed: (json['windSpeed'] as num?)?.toDouble(),
   );
 }
 
@@ -31,14 +31,14 @@ Map<String, dynamic> _$_$_WeatherToJson(_$_Weather instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'altitude': instance.altitude,
-      'createdat': instance.createdat?.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
       'humidity': instance.humidity,
       'pressure': instance.pressure,
       'rain': instance.rain,
-      'soilmoisture': instance.soilmoisture,
-      'soiltemperature': instance.soiltemperature,
+      'soilMoisture': instance.soilMoisture,
+      'soilTemperature': instance.soilTemperature,
       'temperature': instance.temperature,
-      'updatedat': instance.updatedat?.toIso8601String(),
-      'winddirection': instance.winddirection,
-      'windspeed': instance.windspeed,
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'windDirection': instance.windDirection,
+      'windSpeed': instance.windSpeed,
     };

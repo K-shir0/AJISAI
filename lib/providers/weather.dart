@@ -8,17 +8,17 @@ part 'weather.g.dart';
 class Weather with _$Weather {
   const factory Weather({
     @JsonKey(name: "_id") @Default("") String id,
-    int? altitude,
-    DateTime? createdat,
-    int? humidity,
-    int? pressure,
+    double? altitude,
+    DateTime? createdAt,
+    double? humidity,
+    double? pressure,
     double? rain,
-    int? soilmoisture,
-    int? soiltemperature,
-    int? temperature,
-    DateTime? updatedat,
-    String? winddirection,
-    int? windspeed,
+    double? soilMoisture,
+    double? soilTemperature,
+    double? temperature,
+    DateTime? updatedAt,
+    String? windDirection,
+    double? windSpeed,
 
   }) = _Weather;
 
@@ -44,9 +44,9 @@ class Weather with _$Weather {
   }
 
   double? getWindSpeed() {
-    if (windspeed == null) return null;
+    if (windSpeed == null) return null;
 
-    return (((windspeed! / 2.237) * 10).floor()) / 10;
+    return (((windSpeed! / 2.237) * 10).floor()) / 10;
   }
 
   factory Weather.fromJson(Map<String, dynamic> json) =>

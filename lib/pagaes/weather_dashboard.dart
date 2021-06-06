@@ -4,6 +4,7 @@ import 'package:ajisai/providers/weather.dart';
 import 'package:ajisai/providers/weather_state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -33,8 +34,9 @@ class WeatherDashboardPage extends HookWidget {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
         fetchData(Dio dio) async {
           try {
-            // final response = await dio.get('http://localhost:1323/weathers');
-            return WeatherState.fromJson({'weathers': jsonDecode(testJson)});
+            // final response = await dio.get('file:///Users/k-shiro/Downloads/1h-recent.json');
+            final file = await rootBundle.loadString('1h-recent.json');
+            return WeatherState.fromJson({'weathers': jsonDecode(file)});
           } catch (e) {
             print(e);
           }
@@ -87,13 +89,18 @@ class WeatherDashboardPage extends HookWidget {
               lg: 2,
               child: Container(),
             ),
+            /*
+             * 列要素
+             */
             ResponsiveGridCol(
               lg: 8,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ResponsiveGridRow(
                   children: [
-                    // ここに要素
+                    /*
+                     * 行要素
+                     */
                     ResponsiveGridCol(
                       child: const Padding(
                         padding: EdgeInsets.only(left: 4.0),
@@ -114,6 +121,7 @@ class WeatherDashboardPage extends HookWidget {
                         ),
                       ),
                     ),
+                    // 気温のグラフ
                   ],
                 ),
               ),
@@ -137,7 +145,7 @@ class WeatherDashboardPage extends HookWidget {
     final String hectopascal =
         weather?.getHectopascal()?.toString() ?? "-- "; // 気圧
     final String windSpeed = weather?.getWindSpeed()?.toString() ?? "-- "; // 風速
-    final String windDirection = weather?.winddirection ?? "--"; // 風向
+    final String windDirection = weather?.windDirection ?? "--"; // 風向
 
     // 風向の矢印を決定するメソッド
     IconData windDirectionArrow(String? windDirection) {
@@ -206,7 +214,7 @@ class WeatherDashboardPage extends HookWidget {
             miniInfo(MaterialCommunityIcons.gauge, "気圧", "${hectopascal}hPa"),
             miniInfo(
                 MaterialCommunityIcons.weather_windy, "風速", "${windSpeed}m/s"),
-            miniInfo(windDirectionArrow(weather?.winddirection), "風向",
+            miniInfo(windDirectionArrow(weather?.windDirection), "風向",
                 windDirection),
             miniInfo(MaterialCommunityIcons.cup, "雨量",
                 "${rain?.toStringAsFixed(1) ?? "-- "}mm/1h"),

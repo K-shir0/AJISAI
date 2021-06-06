@@ -22,30 +22,30 @@ class _$WeatherTearOff {
 
   _Weather call(
       {@JsonKey(name: "_id") String id = "",
-      int? altitude,
-      DateTime? createdat,
-      int? humidity,
-      int? pressure,
+      double? altitude,
+      DateTime? createdAt,
+      double? humidity,
+      double? pressure,
       double? rain,
-      int? soilmoisture,
-      int? soiltemperature,
-      int? temperature,
-      DateTime? updatedat,
-      String? winddirection,
-      int? windspeed}) {
+      double? soilMoisture,
+      double? soilTemperature,
+      double? temperature,
+      DateTime? updatedAt,
+      String? windDirection,
+      double? windSpeed}) {
     return _Weather(
       id: id,
       altitude: altitude,
-      createdat: createdat,
+      createdAt: createdAt,
       humidity: humidity,
       pressure: pressure,
       rain: rain,
-      soilmoisture: soilmoisture,
-      soiltemperature: soiltemperature,
+      soilMoisture: soilMoisture,
+      soilTemperature: soilTemperature,
       temperature: temperature,
-      updatedat: updatedat,
-      winddirection: winddirection,
-      windspeed: windspeed,
+      updatedAt: updatedAt,
+      windDirection: windDirection,
+      windSpeed: windSpeed,
     );
   }
 
@@ -61,17 +61,17 @@ const $Weather = _$WeatherTearOff();
 mixin _$Weather {
   @JsonKey(name: "_id")
   String get id => throw _privateConstructorUsedError;
-  int? get altitude => throw _privateConstructorUsedError;
-  DateTime? get createdat => throw _privateConstructorUsedError;
-  int? get humidity => throw _privateConstructorUsedError;
-  int? get pressure => throw _privateConstructorUsedError;
+  double? get altitude => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  double? get humidity => throw _privateConstructorUsedError;
+  double? get pressure => throw _privateConstructorUsedError;
   double? get rain => throw _privateConstructorUsedError;
-  int? get soilmoisture => throw _privateConstructorUsedError;
-  int? get soiltemperature => throw _privateConstructorUsedError;
-  int? get temperature => throw _privateConstructorUsedError;
-  DateTime? get updatedat => throw _privateConstructorUsedError;
-  String? get winddirection => throw _privateConstructorUsedError;
-  int? get windspeed => throw _privateConstructorUsedError;
+  double? get soilMoisture => throw _privateConstructorUsedError;
+  double? get soilTemperature => throw _privateConstructorUsedError;
+  double? get temperature => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  String? get windDirection => throw _privateConstructorUsedError;
+  double? get windSpeed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -84,17 +84,17 @@ abstract class $WeatherCopyWith<$Res> {
       _$WeatherCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: "_id") String id,
-      int? altitude,
-      DateTime? createdat,
-      int? humidity,
-      int? pressure,
+      double? altitude,
+      DateTime? createdAt,
+      double? humidity,
+      double? pressure,
       double? rain,
-      int? soilmoisture,
-      int? soiltemperature,
-      int? temperature,
-      DateTime? updatedat,
-      String? winddirection,
-      int? windspeed});
+      double? soilMoisture,
+      double? soilTemperature,
+      double? temperature,
+      DateTime? updatedAt,
+      String? windDirection,
+      double? windSpeed});
 }
 
 /// @nodoc
@@ -109,16 +109,16 @@ class _$WeatherCopyWithImpl<$Res> implements $WeatherCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? altitude = freezed,
-    Object? createdat = freezed,
+    Object? createdAt = freezed,
     Object? humidity = freezed,
     Object? pressure = freezed,
     Object? rain = freezed,
-    Object? soilmoisture = freezed,
-    Object? soiltemperature = freezed,
+    Object? soilMoisture = freezed,
+    Object? soilTemperature = freezed,
     Object? temperature = freezed,
-    Object? updatedat = freezed,
-    Object? winddirection = freezed,
-    Object? windspeed = freezed,
+    Object? updatedAt = freezed,
+    Object? windDirection = freezed,
+    Object? windSpeed = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -128,47 +128,47 @@ class _$WeatherCopyWithImpl<$Res> implements $WeatherCopyWith<$Res> {
       altitude: altitude == freezed
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
-              as int?,
-      createdat: createdat == freezed
-          ? _value.createdat
-          : createdat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       humidity: humidity == freezed
           ? _value.humidity
           : humidity // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       pressure: pressure == freezed
           ? _value.pressure
           : pressure // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       rain: rain == freezed
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
               as double?,
-      soilmoisture: soilmoisture == freezed
-          ? _value.soilmoisture
-          : soilmoisture // ignore: cast_nullable_to_non_nullable
-              as int?,
-      soiltemperature: soiltemperature == freezed
-          ? _value.soiltemperature
-          : soiltemperature // ignore: cast_nullable_to_non_nullable
-              as int?,
+      soilMoisture: soilMoisture == freezed
+          ? _value.soilMoisture
+          : soilMoisture // ignore: cast_nullable_to_non_nullable
+              as double?,
+      soilTemperature: soilTemperature == freezed
+          ? _value.soilTemperature
+          : soilTemperature // ignore: cast_nullable_to_non_nullable
+              as double?,
       temperature: temperature == freezed
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
-              as int?,
-      updatedat: updatedat == freezed
-          ? _value.updatedat
-          : updatedat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      winddirection: winddirection == freezed
-          ? _value.winddirection
-          : winddirection // ignore: cast_nullable_to_non_nullable
+      windDirection: windDirection == freezed
+          ? _value.windDirection
+          : windDirection // ignore: cast_nullable_to_non_nullable
               as String?,
-      windspeed: windspeed == freezed
-          ? _value.windspeed
-          : windspeed // ignore: cast_nullable_to_non_nullable
-              as int?,
+      windSpeed: windSpeed == freezed
+          ? _value.windSpeed
+          : windSpeed // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -180,17 +180,17 @@ abstract class _$WeatherCopyWith<$Res> implements $WeatherCopyWith<$Res> {
   @override
   $Res call(
       {@JsonKey(name: "_id") String id,
-      int? altitude,
-      DateTime? createdat,
-      int? humidity,
-      int? pressure,
+      double? altitude,
+      DateTime? createdAt,
+      double? humidity,
+      double? pressure,
       double? rain,
-      int? soilmoisture,
-      int? soiltemperature,
-      int? temperature,
-      DateTime? updatedat,
-      String? winddirection,
-      int? windspeed});
+      double? soilMoisture,
+      double? soilTemperature,
+      double? temperature,
+      DateTime? updatedAt,
+      String? windDirection,
+      double? windSpeed});
 }
 
 /// @nodoc
@@ -206,16 +206,16 @@ class __$WeatherCopyWithImpl<$Res> extends _$WeatherCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? altitude = freezed,
-    Object? createdat = freezed,
+    Object? createdAt = freezed,
     Object? humidity = freezed,
     Object? pressure = freezed,
     Object? rain = freezed,
-    Object? soilmoisture = freezed,
-    Object? soiltemperature = freezed,
+    Object? soilMoisture = freezed,
+    Object? soilTemperature = freezed,
     Object? temperature = freezed,
-    Object? updatedat = freezed,
-    Object? winddirection = freezed,
-    Object? windspeed = freezed,
+    Object? updatedAt = freezed,
+    Object? windDirection = freezed,
+    Object? windSpeed = freezed,
   }) {
     return _then(_Weather(
       id: id == freezed
@@ -225,47 +225,47 @@ class __$WeatherCopyWithImpl<$Res> extends _$WeatherCopyWithImpl<$Res>
       altitude: altitude == freezed
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
-              as int?,
-      createdat: createdat == freezed
-          ? _value.createdat
-          : createdat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       humidity: humidity == freezed
           ? _value.humidity
           : humidity // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       pressure: pressure == freezed
           ? _value.pressure
           : pressure // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       rain: rain == freezed
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
               as double?,
-      soilmoisture: soilmoisture == freezed
-          ? _value.soilmoisture
-          : soilmoisture // ignore: cast_nullable_to_non_nullable
-              as int?,
-      soiltemperature: soiltemperature == freezed
-          ? _value.soiltemperature
-          : soiltemperature // ignore: cast_nullable_to_non_nullable
-              as int?,
+      soilMoisture: soilMoisture == freezed
+          ? _value.soilMoisture
+          : soilMoisture // ignore: cast_nullable_to_non_nullable
+              as double?,
+      soilTemperature: soilTemperature == freezed
+          ? _value.soilTemperature
+          : soilTemperature // ignore: cast_nullable_to_non_nullable
+              as double?,
       temperature: temperature == freezed
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
-              as int?,
-      updatedat: updatedat == freezed
-          ? _value.updatedat
-          : updatedat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      winddirection: winddirection == freezed
-          ? _value.winddirection
-          : winddirection // ignore: cast_nullable_to_non_nullable
+      windDirection: windDirection == freezed
+          ? _value.windDirection
+          : windDirection // ignore: cast_nullable_to_non_nullable
               as String?,
-      windspeed: windspeed == freezed
-          ? _value.windspeed
-          : windspeed // ignore: cast_nullable_to_non_nullable
-              as int?,
+      windSpeed: windSpeed == freezed
+          ? _value.windSpeed
+          : windSpeed // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -276,16 +276,16 @@ class _$_Weather extends _Weather {
   const _$_Weather(
       {@JsonKey(name: "_id") this.id = "",
       this.altitude,
-      this.createdat,
+      this.createdAt,
       this.humidity,
       this.pressure,
       this.rain,
-      this.soilmoisture,
-      this.soiltemperature,
+      this.soilMoisture,
+      this.soilTemperature,
       this.temperature,
-      this.updatedat,
-      this.winddirection,
-      this.windspeed})
+      this.updatedAt,
+      this.windDirection,
+      this.windSpeed})
       : super._();
 
   factory _$_Weather.fromJson(Map<String, dynamic> json) =>
@@ -295,31 +295,31 @@ class _$_Weather extends _Weather {
   @JsonKey(name: "_id")
   final String id;
   @override
-  final int? altitude;
+  final double? altitude;
   @override
-  final DateTime? createdat;
+  final DateTime? createdAt;
   @override
-  final int? humidity;
+  final double? humidity;
   @override
-  final int? pressure;
+  final double? pressure;
   @override
   final double? rain;
   @override
-  final int? soilmoisture;
+  final double? soilMoisture;
   @override
-  final int? soiltemperature;
+  final double? soilTemperature;
   @override
-  final int? temperature;
+  final double? temperature;
   @override
-  final DateTime? updatedat;
+  final DateTime? updatedAt;
   @override
-  final String? winddirection;
+  final String? windDirection;
   @override
-  final int? windspeed;
+  final double? windSpeed;
 
   @override
   String toString() {
-    return 'Weather(id: $id, altitude: $altitude, createdat: $createdat, humidity: $humidity, pressure: $pressure, rain: $rain, soilmoisture: $soilmoisture, soiltemperature: $soiltemperature, temperature: $temperature, updatedat: $updatedat, winddirection: $winddirection, windspeed: $windspeed)';
+    return 'Weather(id: $id, altitude: $altitude, createdAt: $createdAt, humidity: $humidity, pressure: $pressure, rain: $rain, soilMoisture: $soilMoisture, soilTemperature: $soilTemperature, temperature: $temperature, updatedAt: $updatedAt, windDirection: $windDirection, windSpeed: $windSpeed)';
   }
 
   @override
@@ -331,9 +331,9 @@ class _$_Weather extends _Weather {
             (identical(other.altitude, altitude) ||
                 const DeepCollectionEquality()
                     .equals(other.altitude, altitude)) &&
-            (identical(other.createdat, createdat) ||
+            (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.createdat, createdat)) &&
+                    .equals(other.createdAt, createdAt)) &&
             (identical(other.humidity, humidity) ||
                 const DeepCollectionEquality()
                     .equals(other.humidity, humidity)) &&
@@ -342,24 +342,24 @@ class _$_Weather extends _Weather {
                     .equals(other.pressure, pressure)) &&
             (identical(other.rain, rain) ||
                 const DeepCollectionEquality().equals(other.rain, rain)) &&
-            (identical(other.soilmoisture, soilmoisture) ||
+            (identical(other.soilMoisture, soilMoisture) ||
                 const DeepCollectionEquality()
-                    .equals(other.soilmoisture, soilmoisture)) &&
-            (identical(other.soiltemperature, soiltemperature) ||
+                    .equals(other.soilMoisture, soilMoisture)) &&
+            (identical(other.soilTemperature, soilTemperature) ||
                 const DeepCollectionEquality()
-                    .equals(other.soiltemperature, soiltemperature)) &&
+                    .equals(other.soilTemperature, soilTemperature)) &&
             (identical(other.temperature, temperature) ||
                 const DeepCollectionEquality()
                     .equals(other.temperature, temperature)) &&
-            (identical(other.updatedat, updatedat) ||
+            (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedat, updatedat)) &&
-            (identical(other.winddirection, winddirection) ||
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.windDirection, windDirection) ||
                 const DeepCollectionEquality()
-                    .equals(other.winddirection, winddirection)) &&
-            (identical(other.windspeed, windspeed) ||
+                    .equals(other.windDirection, windDirection)) &&
+            (identical(other.windSpeed, windSpeed) ||
                 const DeepCollectionEquality()
-                    .equals(other.windspeed, windspeed)));
+                    .equals(other.windSpeed, windSpeed)));
   }
 
   @override
@@ -367,16 +367,16 @@ class _$_Weather extends _Weather {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(altitude) ^
-      const DeepCollectionEquality().hash(createdat) ^
+      const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(humidity) ^
       const DeepCollectionEquality().hash(pressure) ^
       const DeepCollectionEquality().hash(rain) ^
-      const DeepCollectionEquality().hash(soilmoisture) ^
-      const DeepCollectionEquality().hash(soiltemperature) ^
+      const DeepCollectionEquality().hash(soilMoisture) ^
+      const DeepCollectionEquality().hash(soilTemperature) ^
       const DeepCollectionEquality().hash(temperature) ^
-      const DeepCollectionEquality().hash(updatedat) ^
-      const DeepCollectionEquality().hash(winddirection) ^
-      const DeepCollectionEquality().hash(windspeed);
+      const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(windDirection) ^
+      const DeepCollectionEquality().hash(windSpeed);
 
   @JsonKey(ignore: true)
   @override
@@ -392,17 +392,17 @@ class _$_Weather extends _Weather {
 abstract class _Weather extends Weather {
   const factory _Weather(
       {@JsonKey(name: "_id") String id,
-      int? altitude,
-      DateTime? createdat,
-      int? humidity,
-      int? pressure,
+      double? altitude,
+      DateTime? createdAt,
+      double? humidity,
+      double? pressure,
       double? rain,
-      int? soilmoisture,
-      int? soiltemperature,
-      int? temperature,
-      DateTime? updatedat,
-      String? winddirection,
-      int? windspeed}) = _$_Weather;
+      double? soilMoisture,
+      double? soilTemperature,
+      double? temperature,
+      DateTime? updatedAt,
+      String? windDirection,
+      double? windSpeed}) = _$_Weather;
   const _Weather._() : super._();
 
   factory _Weather.fromJson(Map<String, dynamic> json) = _$_Weather.fromJson;
@@ -411,27 +411,27 @@ abstract class _Weather extends Weather {
   @JsonKey(name: "_id")
   String get id => throw _privateConstructorUsedError;
   @override
-  int? get altitude => throw _privateConstructorUsedError;
+  double? get altitude => throw _privateConstructorUsedError;
   @override
-  DateTime? get createdat => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
-  int? get humidity => throw _privateConstructorUsedError;
+  double? get humidity => throw _privateConstructorUsedError;
   @override
-  int? get pressure => throw _privateConstructorUsedError;
+  double? get pressure => throw _privateConstructorUsedError;
   @override
   double? get rain => throw _privateConstructorUsedError;
   @override
-  int? get soilmoisture => throw _privateConstructorUsedError;
+  double? get soilMoisture => throw _privateConstructorUsedError;
   @override
-  int? get soiltemperature => throw _privateConstructorUsedError;
+  double? get soilTemperature => throw _privateConstructorUsedError;
   @override
-  int? get temperature => throw _privateConstructorUsedError;
+  double? get temperature => throw _privateConstructorUsedError;
   @override
-  DateTime? get updatedat => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
-  String? get winddirection => throw _privateConstructorUsedError;
+  String? get windDirection => throw _privateConstructorUsedError;
   @override
-  int? get windspeed => throw _privateConstructorUsedError;
+  double? get windSpeed => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$WeatherCopyWith<_Weather> get copyWith =>
