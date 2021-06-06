@@ -6,6 +6,8 @@ part 'weather.g.dart';
 
 @freezed
 class Weather with _$Weather {
+  const Weather._();
+
   const factory Weather({
     @JsonKey(name: "_id") @Default("") String id,
     int? altitude,
@@ -21,6 +23,25 @@ class Weather with _$Weather {
     int? windspeed,
 
   }) = _Weather;
+
+  double? getTemperature() {
+    if (temperature == null) return null;
+
+    return temperature! / 100;
+  }
+
+  int? getHumidity() {
+    if (humidity == null) return null;
+
+    // ~/は整数の結果
+    return ((humidity! / 1024) * 100).round() ~/ 100;
+  }
+
+  int? getHectopascal() {
+    if (pressure == null) return null;
+
+    return (pressure! / 25600).round();
+  }
 
   factory Weather.fromJson(Map<String, dynamic> json) =>
       _$WeatherFromJson(json);

@@ -19,4 +19,8 @@ class WeatherState with _$WeatherState {
 
 class WeatherStateNotifier extends StateNotifier<WeatherState> {
   WeatherStateNotifier() : super(const WeatherState());
+
+  void setState(List<Weather> weathers) {
+    state = state.copyWith(weathers: weathers);
+  }
 }

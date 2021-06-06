@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ajisai/providers/weather.dart';
 import 'package:ajisai/providers/weather_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,34 +9,42 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
-class WeatherDashboardPage extends HookWidget {
-  final weatherStateNotifier =
-      StateNotifierProvider<WeatherStateNotifier, WeatherState>(
-    (refs) => WeatherStateNotifier(),
-  );
+final weatherStateNotifier =
+    StateNotifierProvider<WeatherStateNotifier, WeatherState>(
+  (refs) => WeatherStateNotifier(),
+);
 
+class WeatherDashboardPage extends HookWidget {
   final testJson = '''
   [{"_id":"60ae4f00916286ba94583a7d","altitude":18,"createdat":"2021-05-26T22:37:04.563+09:00","humidity":102400,"pressure":25905076,"rain":0.077,"soilmoisture":373,"soiltemperature":-6,"temperature":2267,"updatedat":"2021-05-26T22:37:04.563+09:00","winddirection":"NE","windspeed":0}]
   ''';
 
   @override
   Widget build(BuildContext context) {
-    useEffect(() {
-      // ignore: prefer_function_declarations_over_variables
-      final test = () async {
-        try {
-          // final dio = Dio();
-          // final response = await dio.get('http://localhost:1323/weathers');
-          final a = WeatherState.fromJson({'weathers': jsonDecode(testJson)});
-        } catch (e) {
-          print(e);
-        }
-      };
+    final provider = useProvider(weatherStateNotifier);
 
-      test();
+    useEffect(() {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        // ignore: prefer_function_declarations_over_variables
+        final test = () async {
+          try {
+            // final dio = Dio();
+            // final response = await dio.get('http://localhost:1323/weathers');
+            return WeatherState.fromJson({'weathers': jsonDecode(testJson)});
+          } catch (e) {
+            print(e);
+          }
+        };
+
+        test().then((value) => context
+            .read(weatherStateNotifier.notifier)
+            .setState(value!.weathers));
+      });
     }, []);
 
-    final provider = useProvider(weatherStateNotifier);
+    // 一番新しいデータ
+    final Weather? latestData =
+        provider.weathers.isNotEmpty ? provider.weathers[0] : null;
 
     return Scaffold(
       body: Stack(
@@ -84,7 +93,7 @@ class WeatherDashboardPage extends HookWidget {
                       GlassBox(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: topInformation(),
+                          child: topInformation(latestData),
                         ),
                       ),
                     ),
@@ -104,7 +113,12 @@ class WeatherDashboardPage extends HookWidget {
     );
   }
 
-  Widget topInformation() {
+  Widget topInformation(Weather? weather) {
+    // 気温
+    final String temperature = weather?.getTemperature()?.round().toString() ?? "-- ";
+    final String humidity = weather?.getHumidity()?.toString() ?? "-- ";
+    final String hectopascal = weather?.getHectopascal()?.toString() ?? "-- ";
+
     return Column(
       children: [
         Row(
@@ -119,7 +133,8 @@ class WeatherDashboardPage extends HookWidget {
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.8), fontSize: 18),
                 ),
-                const Text("20°",
+                // 気温
+                Text("${temperature}°",
                     style: TextStyle(color: Colors.white, fontSize: 64)),
                 const Text("晴れ",
                     style: TextStyle(
@@ -142,18 +157,18 @@ class WeatherDashboardPage extends HookWidget {
           padding: const EdgeInsets.only(top: 32),
           child: ResponsiveGridRow(children: [
             ResponsiveGridCol(xs: 1, child: Container()),
-            MiniInfo(MaterialCommunityIcons.water_outline, "湿度"),
-            MiniInfo(MaterialCommunityIcons.gauge, "気圧"),
-            MiniInfo(MaterialCommunityIcons.weather_windy, "風速"),
-            MiniInfo(MaterialCommunityIcons.arrow_bottom_left, "風向"),
-            MiniInfo(MaterialCommunityIcons.cup, "雨量"),
+            miniInfo(MaterialCommunityIcons.water_outline, "湿度", "$humidity%"),
+            miniInfo(MaterialCommunityIcons.gauge, "気圧", "${hectopascal}hPa"),
+            miniInfo(MaterialCommunityIcons.weather_windy, "風速", "10m/s"),
+            miniInfo(MaterialCommunityIcons.arrow_bottom_left, "風向", "N"),
+            miniInfo(MaterialCommunityIcons.cup, "雨量", "28mm/1h"),
           ]),
         )
       ],
     );
   }
 
-  ResponsiveGridCol MiniInfo(IconData iconData, String title) {
+  ResponsiveGridCol miniInfo(IconData iconData, String title, String text) {
     return ResponsiveGridCol(
       xs: 2,
       child: Column(
@@ -168,8 +183,8 @@ class WeatherDashboardPage extends HookWidget {
                   color: Colors.white.withOpacity(0.6),
                   fontSize: 16,
                   fontWeight: FontWeight.bold)),
-          Text("75%",
-              style: TextStyle(
+          Text(text,
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.bold)),

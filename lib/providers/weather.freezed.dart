@@ -272,7 +272,7 @@ class __$WeatherCopyWithImpl<$Res> extends _$WeatherCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Weather implements _Weather {
+class _$_Weather extends _Weather {
   const _$_Weather(
       {@JsonKey(name: "_id") this.id = "",
       this.altitude,
@@ -285,7 +285,8 @@ class _$_Weather implements _Weather {
       this.temperature,
       this.updatedat,
       this.winddirection,
-      this.windspeed});
+      this.windspeed})
+      : super._();
 
   factory _$_Weather.fromJson(Map<String, dynamic> json) =>
       _$_$_WeatherFromJson(json);
@@ -388,7 +389,7 @@ class _$_Weather implements _Weather {
   }
 }
 
-abstract class _Weather implements Weather {
+abstract class _Weather extends Weather {
   const factory _Weather(
       {@JsonKey(name: "_id") String id,
       int? altitude,
@@ -402,6 +403,7 @@ abstract class _Weather implements Weather {
       DateTime? updatedat,
       String? winddirection,
       int? windspeed}) = _$_Weather;
+  const _Weather._() : super._();
 
   factory _Weather.fromJson(Map<String, dynamic> json) = _$_Weather.fromJson;
 
