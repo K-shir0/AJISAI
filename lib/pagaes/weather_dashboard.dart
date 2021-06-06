@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ajisai/pagaes/common/background_container.dart';
 import 'package:ajisai/providers/weather.dart';
 import 'package:ajisai/providers/weather_state.dart';
 import 'package:dio/dio.dart';
@@ -70,22 +71,7 @@ class WeatherDashboardPage extends HookWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
-                colors: [
-                  const Color(0xff2980B9).withOpacity(0.6),
-                  const Color(0xff6DD5FA).withOpacity(0.6),
-                ],
-                stops: const [
-                  0.0,
-                  1.0,
-                ],
-              ),
-            ),
-          ),
+          BackgroundContainer(),
           ResponsiveGridRow(children: [
             ResponsiveGridCol(
               lg: 2,

@@ -14,14 +14,16 @@ class App extends HookWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (context) => PartsPage());
+
         if (settings.name == '/') {
           return MaterialPageRoute(
               builder: (context) => WeatherDashboardPage());
         }
         
-        if (settings.name == '/parts') {
-          return MaterialPageRoute(builder: (context) => PartsPage());
-        }
+        // if (settings.name == '/parts') {
+        //
+        // }
 
         // Default Routing
         return MaterialPageRoute(
