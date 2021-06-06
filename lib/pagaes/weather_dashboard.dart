@@ -116,7 +116,9 @@ class WeatherDashboardPage extends HookWidget {
   Widget topInformation(Weather? weather) {
     // 気温
     final String temperature = weather?.getTemperature()?.round().toString() ?? "-- ";
+    // 湿度
     final String humidity = weather?.getHumidity()?.toString() ?? "-- ";
+    // 気圧
     final String hectopascal = weather?.getHectopascal()?.toString() ?? "-- ";
 
     return Column(
