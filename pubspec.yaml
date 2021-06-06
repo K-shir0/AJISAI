@@ -38,6 +38,9 @@ dependencies:
   responsive_framework: ^0.1.0
   flutter_icons: ^1.1.0
   flutter_svg: ^0.22.0
+  syncfusion_flutter_charts: ^19.1.66+1
+  syncfusion_flutter_gauges: ^19.1.66
+
 
 dev_dependencies:
   flutter_test:

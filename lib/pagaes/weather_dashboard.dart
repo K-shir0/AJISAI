@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ajisai/pagaes/common/background_container.dart';
+import 'package:ajisai/pagaes/parts.dart';
 import 'package:ajisai/providers/weather.dart';
 import 'package:ajisai/providers/weather_state.dart';
 import 'package:dio/dio.dart';
@@ -114,10 +115,14 @@ class WeatherDashboardPage extends HookWidget {
                         child: ResponsiveGridRow(
                       children: [
                         ResponsiveGridCol(
-                          xl: 3,
-                          child: GlassBox(
-                            child: Container(
-                              height: 500,
+                          xl: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: GlassBox(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Thermometer(),
+                              ),
                             ),
                           ),
                         )
