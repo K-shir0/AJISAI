@@ -116,12 +116,10 @@ class WeatherDashboardPage extends HookWidget {
   }
 
   Widget topInformation(Weather? weather) {
-    // 気温
-    final String temperature = weather?.getTemperature()?.round().toString() ?? "-- ";
-    // 湿度
-    final String humidity = weather?.getHumidity()?.toString() ?? "-- ";
-    // 気圧
-    final String hectopascal = weather?.getHectopascal()?.toString() ?? "-- ";
+    final String temperature = weather?.getTemperature()?.round().toString() ?? "-- "; // 気温
+    final String humidity = weather?.getHumidity()?.toString() ?? "-- "; // 湿度
+    final String hectopascal = weather?.getHectopascal()?.toString() ?? "-- "; // 気圧
+    final String windSpeed = weather?.getWindSpeed()?.toString() ?? "-- "; // 風速
 
     return Column(
       children: [
@@ -163,7 +161,7 @@ class WeatherDashboardPage extends HookWidget {
             ResponsiveGridCol(xs: 1, child: Container()),
             miniInfo(MaterialCommunityIcons.water_outline, "湿度", "$humidity%"),
             miniInfo(MaterialCommunityIcons.gauge, "気圧", "${hectopascal}hPa"),
-            miniInfo(MaterialCommunityIcons.weather_windy, "風速", "10m/s"),
+            miniInfo(MaterialCommunityIcons.weather_windy, "風速", "${windSpeed}m/s"),
             miniInfo(MaterialCommunityIcons.arrow_bottom_left, "風向", "N"),
             miniInfo(MaterialCommunityIcons.cup, "雨量", "28mm/1h"),
           ]),

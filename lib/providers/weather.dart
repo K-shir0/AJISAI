@@ -43,6 +43,12 @@ class Weather with _$Weather {
     return (pressure! / 25600).round();
   }
 
+  double? getWindSpeed() {
+    if (windspeed == null) return null;
+
+    return (((windspeed! / 2.237) * 10).floor()) / 10;
+  }
+
   factory Weather.fromJson(Map<String, dynamic> json) =>
       _$WeatherFromJson(json);
 }
