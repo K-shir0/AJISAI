@@ -30,6 +30,17 @@ class WeatherDashboardPage extends HookWidget {
   ]
   ''';
 
+  List<Weather> getOneHourData(List<Weather> weathers, int number) {
+    final List<Weather> list = [];
+
+    weathers.asMap().forEach((int i, Weather element) {
+      if (i % weathers.length ~/ number == 0)
+        list.add(element);
+    });
+
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = useProvider(weatherStateNotifier);
@@ -90,38 +101,59 @@ class WeatherDashboardPage extends HookWidget {
                     /*
                      * 行要素
                      */
-                    ResponsiveGridCol(
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 4.0),
-                        child: Text(
-                          "AJISAI",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 64,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    topInformationFrame(
-                      GlassBox(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: topInformation(latestData, rain1hRecent),
-                        ),
-                      ),
-                    ),
+                    // ResponsiveGridCol(
+                    //   child: const Padding(
+                    //     padding: EdgeInsets.only(left: 4.0),
+                    //     child: Text(
+                    //       "AJISAI",
+                    //       style: TextStyle(
+                    //           color: Colors.white,
+                    //           fontSize: 64,
+                    //           fontWeight: FontWeight.bold),
+                    //     ),
+                    //   ),
+                    // ),
+                    // topInformationFrame(
+                    //   GlassBox(
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(16.0),
+                    //       child: topInformation(latestData, rain1hRecent),
+                    //     ),
+                    //   ),
+                    // ),
                     // 気温のグラフ
                     ResponsiveGridCol(
                         child: ResponsiveGridRow(
                       children: [
+                        // ResponsiveGridCol(
+                        //   xs: 3,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(4.0),
+                        //     child: GlassBox(
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.all(8.0),
+                        //         child: Container(
+                        //           height: 256,
+                        //           child: Thermometer(
+                        //             meterValue: latestData
+                        //                     ?.getTemperature()
+                        //                     ?.roundToDouble() ??
+                        //                 -21,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         ResponsiveGridCol(
-                          xs: 3,
+                          xs: 9,
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: GlassBox(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Thermometer(meterValue: latestData?.getTemperature()?.roundToDouble() ?? -21,),
+                                child: Container(
+                                    height: 256, child: TemperatureGraph(weathers: getOneHourData(provider.weathers, 10))),
                               ),
                             ),
                           ),
