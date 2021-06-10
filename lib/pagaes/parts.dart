@@ -55,7 +55,7 @@ class TemperatureGraph extends StatelessWidget {
           alignment: ChartAlignment.near,
           textStyle: const TextStyle(
               color: Colors.white,
-              fontSize: 24,
+              fontSize: 16,
               fontWeight: FontWeight.bold)),
       primaryXAxis: DateTimeAxis(
           edgeLabelPlacement: EdgeLabelPlacement.shift,
