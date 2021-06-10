@@ -40,6 +40,7 @@ dependencies:
   flutter_svg: ^0.22.0
   syncfusion_flutter_charts: ^19.1.66+1
   syncfusion_flutter_gauges: ^19.1.66
+  intl: ^0.17.0
 
 
 dev_dependencies:

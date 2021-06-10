@@ -1,8 +1,8 @@
 import 'package:ajisai/pagaes/common/background_container.dart';
-import 'package:ajisai/pagaes/common/glass_box.dart';
 import 'package:ajisai/providers/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -15,9 +15,10 @@ class PartsPage extends HookWidget {
           BackgroundContainer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Text("パーツリスト"),
-              Thermometer(),
+              const Thermometer(),
             ],
           ),
         ],
@@ -60,10 +61,12 @@ class TemperatureGraph extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
           edgeLabelPlacement: EdgeLabelPlacement.shift,
           intervalType: DateTimeIntervalType.minutes,
-          isVisible: false,
-          majorGridLines: const MajorGridLines(width: 0)),
+          dateFormat: DateFormat.Hm(),
+          labelStyle: const TextStyle(color: Colors.white),
+          majorGridLines: const MajorGridLines(width: 0),),
       primaryYAxis: NumericAxis(
-          labelFormat: '{value}°',
+          labelFormat: '{value}',
+          numberFormat: NumberFormat('##.0'),
           axisLine: const AxisLine(width: 0),
           isVisible: false,
           majorTickLines: const MajorTickLines(color: Colors.transparent)),
@@ -73,11 +76,11 @@ class TemperatureGraph extends StatelessWidget {
           dataSource: test,
           xValueMapper: (_ChartData sales, _) => sales.x,
           yValueMapper: (_ChartData sales, _) => sales.y,
-          color: Color(0xfff5af19).withOpacity(0.6),
-          borderColor: Color(0xffF37335).withOpacity(0.6),
+          color: const Color(0xfff5af19).withOpacity(0.3),
+          borderColor: const Color(0xffF37335).withOpacity(0.6),
           borderWidth: 2,
           name: '気温',
-          markerSettings: MarkerSettings(isVisible: false),
+          markerSettings: const MarkerSettings(isVisible: false),
           dataLabelSettings: DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.top,
@@ -88,7 +91,6 @@ class TemperatureGraph extends StatelessWidget {
       ],
       trackballBehavior: TrackballBehavior(
         enable: true,
-        lineType: TrackballLineType.vertical,
       ),
       crosshairBehavior: CrosshairBehavior(enable: true),
       tooltipBehavior: TooltipBehavior(enable: true),
